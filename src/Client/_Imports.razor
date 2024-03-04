@@ -1,0 +1,41 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.Extensions.Configuration
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.Extensions.Localization
+@using Microsoft.JSInterop
+@using hotel_ize_frontend.Client
+@using hotel_ize_frontend.Client.Shared
+@using hotel_ize_frontend.Client.Pages.Authentication
+@using hotel_ize_frontend.Client.Pages.Multitenancy
+@using hotel_ize_frontend.Client.Components.Common
+@using hotel_ize_frontend.Client.Components.EntityTable
+@using hotel_ize_frontend.Client.Components.Localization
+@using hotel_ize_frontend.Client.Components.Notifications
+@using hotel_ize_frontend.Client.Components.ThemeManager
+@using hotel_ize_frontend.Client.Infrastructure.ApiClient
+@using hotel_ize_frontend.Client.Infrastructure.Auth
+@using hotel_ize_frontend.Client.Infrastructure.Common
+@using hotel_ize_frontend.Client.Infrastructure.Notifications
+@using hotel_ize_frontend.Client.Infrastructure.Preferences
+@using FSH.WebApi.Shared.Authorization
+@using Blazored.LocalStorage
+@using Mapster
+@using MediatR.Courier
+@using MudBlazor
+
+@attribute [Authorize]
+
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject IConfiguration Config
+@inject IClientPreferenceManager ClientPreferences
