@@ -1,5 +1,18 @@
-﻿<h3>TypeChambres</h3>
+﻿@page "/configurations/typeChambres"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.TypeChambres)]
 
-@code {
+@inject IStringLocalizer<TypeChambres> L
 
-}
+<FshTitle Title="@L["Type Chambres"]" Description="@L["Gérer les types de chambres"]" />
+
+<EntityTable TEntity="TypeChambreDto" TId="Guid" TRequest="UpdateTypeChambreRequest" Context="@Context">
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" For="@(() => context.Code)" @bind-Value="context.Code" Label="@L["Code"]" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" For="@(() => context.Libelle)" @bind-Value="context.Libelle" Label="@L["Libelle"]" />
+        </MudItem>
+    </EditFormContent>
+</EntityTable>
