@@ -5,8 +5,8 @@
 <MudNavMenu>
     <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Start"]</MudText>
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">@L["Home"]</MudNavLink>
-    <MudNavLink Href="https://fullstackhero.net/basics/getting-started/" Match="NavLinkMatch.All" Target="_blank"
-        Icon="@Icons.Material.Filled.RocketLaunch">@L["Getting Started"]</MudNavLink>
+    @* <MudNavLink Href="https://fullstackhero.net/basics/getting-started/" Match="NavLinkMatch.All" Target="_blank"
+        Icon="@Icons.Material.Filled.RocketLaunch">@L["Getting Started"]</MudNavLink> *@
     @if (_canViewHangfire)
     {
         <MudNavLink Href="@_hangfireUrl" Match="NavLinkMatch.All" Target="_blank" Icon="@Icons.Material.Filled.Work">@L["Hangfire"]</MudNavLink>
@@ -35,6 +35,18 @@
                 </MudNavLink>
             }
         </MudNavGroup>
+    }
+    @if (CanViewConfigurationGroup)
+    {
+        <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Configuration"]</MudText>
+        @if (_canViewTypeChambres)
+        {
+            <MudNavLink Match="NavLinkMatch.Prefix" Href="/configurations/typeChambres" Icon="@Icons.Material.Filled.RoomPreferences">@L["Type Chambres"]</MudNavLink>
+        }
+        @if (_canViewAgents)
+        {
+            <MudNavLink Href="/configurations/agents" Icon="@Icons.Material.Filled.PeopleAlt">@L["Agents"]</MudNavLink>
+        }
     }
     @if (CanViewAdministrationGroup)
     {
