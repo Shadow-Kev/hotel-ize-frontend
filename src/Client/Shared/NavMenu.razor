@@ -43,6 +43,10 @@
         {
             <MudNavLink Match="NavLinkMatch.Prefix" Href="/configurations/typeChambres" Icon="@Icons.Material.Filled.RoomPreferences">@L["Type Chambres"]</MudNavLink>
         }
+        @if (_canViewChambres)
+        {
+            <MudNavLink Href="/configurations/chambres" Icon="@Icons.Material.Filled.MeetingRoom">@L["Chambres"]</MudNavLink>
+        }
         @if (_canViewAgents)
         {
             <MudNavLink Href="/configurations/agents" Icon="@Icons.Material.Filled.PeopleAlt">@L["Agents"]</MudNavLink>
