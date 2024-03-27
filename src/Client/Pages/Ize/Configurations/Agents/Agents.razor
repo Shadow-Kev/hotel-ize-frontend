@@ -1,0 +1,19 @@
+﻿@page "/configurations/agents"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Agents)]
+
+@inject IStringLocalizer<Agents> L
+
+<FshTitle Title="@L["Agents"]" Description="@L["Gérer les agents"]" />
+
+<EntityTable TEntity="AgentDto" TId="Guid" TRequest="UpdateAgentRequest" Context="Context">
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            <MudAutocomplete Margin="Margin.Dense" Variant="Variant.Outlined" @bind-Value="context.UserCode" For="@(() => context.UserCode)"
+                ResetValueOnEmptyText="true" SearchFunc="SearchUsers" ToStringFunc="@(e => _users.FirstOrDefault(_ => _.Id == e)?.FirstName ?? string.Empty)"/>
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudCheckBox Checked="context.IsActive" CheckedChanged="@((bool value) => HandleChecked(value))" Label="@L["Est actif?"]" Dense="true" Color="Color.Primary"></MudCheckBox>
+        </MudItem>
+    </EditFormContent>
+</EntityTable>
