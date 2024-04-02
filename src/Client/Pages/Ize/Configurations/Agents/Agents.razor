@@ -13,7 +13,7 @@
         </MudItem>
 
         <MudItem xs="12" md="6">
-            <MudCheckBox Checked="context.IsActive" CheckedChanged="@((bool value) => HandleChecked(value))" Label="@L["Est actif?"]" Dense="true" Color="Color.Primary"></MudCheckBox>
+            <MudCheckBox T="bool" Checked="context.IsActive" CheckedChanged="@((bool check) => context.IsActive = check)" Label="@L["Est actif?"]" Dense="true" Color="Color.Primary"></MudCheckBox>
         </MudItem>
     </EditFormContent>
 </EntityTable>
