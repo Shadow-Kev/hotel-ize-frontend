@@ -76,9 +76,4 @@ public partial class Agents
             .ToList();
     }
 
-    private void HandleChecked(bool value)
-    {
-        Context.AddEditModal.RequestModel.IsActive = value;
-    }
-
 }

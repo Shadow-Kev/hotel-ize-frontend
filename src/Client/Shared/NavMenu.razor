@@ -18,6 +18,14 @@
     }
     <MudNavLink Href="/account" Icon="@Icons.Filled.ManageAccounts">@L["Account"]</MudNavLink>
     <MudNavLink Href="/audit-logs" Icon="@Icons.Material.Filled.SecurityUpdateGood">@L["Logs"]</MudNavLink>
+    @if (CanViewReceptionGroup)
+    {
+        <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Reception"]</MudText>
+        @if (_canViewClients)
+        {
+            <MudNavLink Href="/reception/clients" Icon="@Icons.Filled.People">@L["Clients"]</MudNavLink>
+        }
+    }
     @if (_canViewProducts || _canViewBrands)
     {
         <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Management"]</MudText>

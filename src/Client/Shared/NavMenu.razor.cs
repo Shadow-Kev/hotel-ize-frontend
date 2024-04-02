@@ -24,9 +24,11 @@ public partial class NavMenu
     private bool _canViewTypeChambres;
     private bool _canViewAgents;
     private bool _canViewChambres;
+    private bool _canViewClients;
 
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
     private bool CanViewConfigurationGroup => _canViewTypeChambres || _canViewAgents || _canViewChambres;
+    private bool CanViewReceptionGroup => _canViewClients;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -42,5 +44,6 @@ public partial class NavMenu
         _canViewTypeChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.TypeChambres);
         _canViewAgents = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Agents);
         _canViewChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Chambres);
+        _canViewClients = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Clients);
     }
 }
