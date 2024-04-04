@@ -36,7 +36,8 @@ public partial class Clients
                 new(c => c.Nom, L["Nom"], "Nom"),
                 new(c => c.Prenom, L["Prenom"], "Prenom"),
                 new(c => c.DateArrive, L["Date d'arrivée"], "DateArrive"),
-                new(c => c.DateDepart, L["Date de départ"], "DateDepart")
+                new(c => c.DateDepart, L["Date de départ"], "DateDepart"),
+                new(c => c.ChambreNom, L["Chambre"], "ChambreNom")
             },
             idFunc: c => c.Id,
             searchFunc: async filter =>
@@ -61,7 +62,6 @@ public partial class Clients
             },
             updateFunc: async (id, c) =>
             {
-                await GetChambres();
                 var user = (await AuthState).User;
                 string userIdString = user.GetUserId();
                 Guid userCode = Guid.Parse(userIdString!);
@@ -71,6 +71,7 @@ public partial class Clients
             },
             deleteFunc: async id => await ClientsClient.DeleteAsync(id)
         );
+        await GetChambres();
     }
 
     private Guid _searchChambreId;
@@ -119,10 +120,10 @@ public partial class Clients
 
     private async Task<IEnumerable<Guid?>> SearchChambre(string value)
     {
-        return (IEnumerable<Guid?>)(string.IsNullOrEmpty(value)
-            ? _chambres.Select(_ => _.Id)
+        return string.IsNullOrEmpty(value)
+            ? _chambres.Select(_ => (Guid?)_.Id)
             : _chambres.Where(_ => _.Nom.Contains(value, StringComparison.InvariantCultureIgnoreCase))
-                .Select(_ => _.Id)
-                .ToList());
+                .Select(_ => (Guid?)_.Id)
+                .ToList();
     }
 }
