@@ -1,0 +1,71 @@
+﻿@page "/reception/clients"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Clients)]
+@inject IStringLocalizer<Clients> L
+<FshTitle Title="@L["Clients"]" Description="@L["Enregistrement des clients"]"></FshTitle>
+
+<EntityTable @ref="@_table" TEntity="ClientDto" TId="Guid" TRequest="UpdateClientRequest" Context="Context">
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée'"]" For="@(() => context.DateArrive)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudDatePicker @bind-Date="@context.DateDepart" Label="@L["Date de départ"]" For="@(() => context.DateDepart)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+        </MudItem>
+        @if (context.Id != Guid.Empty)
+        {
+            <MudItem xs="12" md="6">
+                <MudItem xs="12" md="6">
+                    <MudAutocomplete @bind-Value="context.ChambreId" For="@(() => context.ChambreId)" Label="@L["Choisir la chambre"]"
+                        Margin="Margin.Dense" Variant="Variant.Outlined" ResetValueOnEmptyText="true" SearchFunc="SearchChambre"
+                        ToStringFunc="@(e => _chambres.FirstOrDefault(_ => _.Id == e)?.Nom ?? string.Empty)"
+                    />
+                </MudItem>
+            </MudItem>
+        }
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Nom" Label="@L["Nom"]" For="@(() => context.Nom)" Margin="Margin.Dense" Variant="Variant.Outlined" Required="true"/>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Prenom" Label="@L["Prenoms"]" For="@(() => context.Prenom)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.NomDeJeuneFille" Label="@L["Nom de jeune fille"]" For="@(() => context.NomDeJeuneFille)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.LieuDeNaissance" Label="@L["Lieu de naissance"]" For="@(() => context.LieuDeNaissance)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Nationalite" Label="@L["Nationalité"]" For="@(() => context.Nationalite)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Profession" Label="@L["Profession"]" For="@(() => context.Profession)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Domicile" Label="@L["Domicile"]" For="@(() => context.Domicile)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.MotifDuVoyage" Label="@L["Motif du voyage"]" For="@(() => context.MotifDuVoyage)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.VenantDe" Label="@L["Venant de"]" For="@(() => context.VenantDe)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.AllantA" Label="@L["Allant à"]" For="@(() => context.AllantA)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Identite" Label="@L["Identité"]" For="@(() => context.Identite)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudDatePicker @bind-Date="@context.DateIdentiteDelivreeLe" Label="@L["Délivré le"]" For="@(() => context.DateIdentiteDelivreeLe)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Contact" Label="@L["Contact"]" For="@(() => context.Contact)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.Email" InputType="InputType.Email" Label="@L["Email"]" For="@(() => context.Email)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="@context.PersonneAPrevenir" Label="@L["Personne à prévenir"]" For="@(() => context.PersonneAPrevenir)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+    </EditFormContent>
+</EntityTable>

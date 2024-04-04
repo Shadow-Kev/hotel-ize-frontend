@@ -28,6 +28,7 @@ public static class FSHResource
     public const string TypeChambres = nameof(TypeChambres);
     public const string Agents = nameof(Agents);
     public const string Chambres = nameof(Chambres);
+    public const string Clients = nameof(Clients);
 }
 
 public static class FSHPermissions
@@ -76,18 +77,26 @@ public static class FSHPermissions
         new("Delete TypeChambres", FSHAction.Delete, FSHResource.TypeChambres),
         new("View TypeChambres", FSHAction.View, FSHResource.TypeChambres),
 
+        new("View Chambres", FSHAction.View, FSHResource.Chambres),
         new("Create Chambres", FSHAction.Create, FSHResource.Chambres),
         new("Search Chambres", FSHAction.Search, FSHResource.Chambres),
         new("Update Chambres", FSHAction.Update, FSHResource.Chambres),
         new("Delete Chambres", FSHAction.Delete, FSHResource.Chambres),
-        new("View Chambres", FSHAction.View, FSHResource.Chambres),
         new("Export Chambres", FSHAction.Export, FSHResource.Chambres),
+
+        new("View Client", FSHAction.View, FSHResource.Clients),
+        new("Create Client", FSHAction.Create, FSHResource.Clients),
+        new("Search Client", FSHAction.Search, FSHResource.Clients),
+        new("Update Client", FSHAction.Update, FSHResource.Clients),
+        new("Delete Client", FSHAction.Delete, FSHResource.Clients),
+        new("Export Client", FSHAction.Export, FSHResource.Clients),
 
         new("Create Agents", FSHAction.Create, FSHResource.Agents),
         new("Search Agents", FSHAction.Search, FSHResource.Agents),
         new("Update Agents", FSHAction.Update, FSHResource.Agents),
         new("Delete Agents", FSHAction.Delete, FSHResource.Agents),
         new("View Agents", FSHAction.View, FSHResource.Agents),
+
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
         new("Update Tenants", FSHAction.Update, FSHResource.Tenants, IsRoot: true),
