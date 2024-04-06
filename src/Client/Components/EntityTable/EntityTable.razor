@@ -49,23 +49,23 @@
                     {
                         <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary"
                             OnClick="(() => InvokeModal())" StartIcon="@Icons.Material.Filled.Add"
-                            IconColor="Color.Surface">@L["Create"]</MudButton>
+                            IconColor="Color.Surface">@L["Ajouter"]</MudButton>
                     }
                     @if (_canExport)
                     {
                         <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Tertiary"
                             OnClick="(() => ExportAsync())" StartIcon="@Icons.Material.Filled.ImportExport"
-                            Style="margin-left: 5px;" IconColor="Color.Surface">@L["Export"]</MudButton>
+                            Style="margin-left: 5px;" IconColor="Color.Surface">@L["Exporter"]</MudButton>
                     }
                     <MudButton DisableElevation Variant="Variant.Filled" OnClick="ReloadDataAsync"
                         StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary"
-                        Style="margin-left: 5px;">@L["Reload"]</MudButton>
+                        Style="margin-left: 5px;">@L["Rafraîchir"]</MudButton>
                 </div>
                 <MudSpacer />
                 @if (_canSearch && !_advancedSearchExpanded)
                 {
                     <MudTextField @bind-Value="SearchString" Immediate="true" FullWidth="false"
-                        Placeholder="@($"{L["Search for"]} {Context.EntityNamePlural}")" Adornment="Adornment.End"
+                        Placeholder="@($"{L["Rechercher des"]} {Context.EntityNamePlural}")" Adornment="Adornment.End"
                         AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 mb-3"
                         TextChanged="OnSearchStringChanged">
                     </MudTextField>
@@ -139,7 +139,7 @@
                         <MudButton Variant="Variant.Filled" DisableElevation="true"
                             StartIcon="@Icons.Material.Filled.DoNotTouch" IconColor="Color.Secondary" Size="Size.Small"
                         Color="Color.Surface">
-                            @L["No Allowed Actions"]
+                            @L["Action non permise"]
                         </MudButton>
                     }
                 </MudTd>

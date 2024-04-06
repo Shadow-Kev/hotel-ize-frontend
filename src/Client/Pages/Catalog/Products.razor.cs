@@ -26,7 +26,6 @@ public partial class Products
             entityResource: FSHResource.Products,
             fields: new()
             {
-                new(prod => prod.Id, L["Id"], "Id"),
                 new(prod => prod.Name, L["Name"], "Name"),
                 new(prod => prod.BrandName, L["Brand"], "Brand.Name"),
                 new(prod => prod.Description, L["Description"], "Description"),
