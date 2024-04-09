@@ -121,16 +121,16 @@
     <value>Actions</value>
   </data>
   <data name="Add Brand" xml:space="preserve">
-    <value>Ajouter un marque</value>
+    <value>Ajouter une catégorie</value>
   </data>
   <data name="Bordered" xml:space="preserve">
     <value>Avec bordures</value>
   </data>
   <data name="Brands" xml:space="preserve">
-    <value>Marques</value>
+    <value>Catégories</value>
   </data>
   <data name="Brands exported" xml:space="preserve">
-    <value>Marques exportées</value>
+    <value>Catégories exportées</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Créer</value>
@@ -139,7 +139,7 @@
     <value>Supprimer</value>
   </data>
   <data name="Delete Content" xml:space="preserve">
-    <value>Supprimer la marque</value>
+    <value>Supprimer la catégorie</value>
   </data>
   <data name="Dense" xml:space="preserve">
     <value>Dense</value>
@@ -154,7 +154,7 @@
     <value>Exporter</value>
   </data>
   <data name="Filtered Brands exported" xml:space="preserve">
-    <value>Marques filtrées exportées</value>
+    <value>Catégories filtrées exportées</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Identifiant</value>
@@ -163,7 +163,7 @@
     <value>Importer</value>
   </data>
   <data name="Manage Brands." xml:space="preserve">
-    <value>Gérer les marques</value>
+    <value>Gérer les catégories</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>

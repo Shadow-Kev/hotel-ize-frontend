@@ -19,7 +19,7 @@ public class BrandAutocomplete : MudAutocomplete<Guid>
     // supply default parameters, but leave the possibility to override them
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        Label = L["Brand"];
+        Label = L["Catégorie"];
         Variant = Variant.Filled;
         Dense = true;
         Margin = Margin.Dense;
