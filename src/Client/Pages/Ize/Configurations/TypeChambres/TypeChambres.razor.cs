@@ -19,7 +19,6 @@ public partial class TypeChambres
             entityResource: FSHResource.TypeChambres,
             fields: new()
             {
-                new(tp => tp.Id, "Id"),
                 new(tp => tp.Code, "Code"),
                 new(tp => tp.Libelle, "Libelle"),
             },
