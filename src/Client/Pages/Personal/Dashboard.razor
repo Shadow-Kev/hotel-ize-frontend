@@ -14,7 +14,27 @@ else
     <MudGrid>
         <MudItem xs="12" sm="6" md="3">
             <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-                <MudIcon Icon="@Icons.Material.Filled.ViewCarousel" Color="Color.Primary" Class="mx-4"
+                <MudIcon Icon="@Icons.Material.Filled.MeetingRoom" Color="Color.Primary" Class="mx-4"
+                         Style="width:54px; height:54px;"></MudIcon>
+                <div>
+                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Chambres"]</MudText>
+                    <MudText Typo="Typo.h5">@ChambreCount</MudText>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
+                <MudIcon Icon="@Icons.Material.Filled.Person" Color="Color.Secondary" Class="mx-4"
+                         Style="width:54px; height:54px;"></MudIcon>
+                <div>
+                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Clients"]</MudText>
+                    <MudText Typo="Typo.h5">@ClientCount</MudText>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
+                <MudIcon Icon="@Icons.Material.Filled.ViewCarousel" Color="Color.Surface" Class="mx-4"
                 Style="width:54px; height:54px;"></MudIcon>
                 <div>
                     <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Products"]</MudText>
@@ -24,10 +44,10 @@ else
         </MudItem>
         <MudItem xs="12" sm="6" md="3">
             <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-                <MudIcon Icon="@Icons.Material.Filled.PanoramaPhotosphereSelect" Color="Color.Secondary" Class="mx-4"
+                <MudIcon Icon="@Icons.Material.Filled.ShoppingBag" Color="Color.Secondary" Class="mx-4"
                 Style="width:54px; height:54px;"></MudIcon>
                 <div>
-                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Brands"]</MudText>
+                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Catégories"]</MudText>
                     <MudText @bind-Value="@BrandCount" Typo="Typo.h5">@BrandCount</MudText>
                 </div>
             </MudPaper>
@@ -37,7 +57,7 @@ else
                 <MudIcon Icon="@Icons.Material.Filled.Face" Color="Color.Success" Class="mx-4"
                 Style="width:54px; height:54px;"></MudIcon>
                 <div>
-                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Registered Users"]
+                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Personnel enregistrés"]
                     </MudText>
                     <MudText Typo="Typo.h5">@UserCount</MudText>
                 </div>
@@ -51,6 +71,16 @@ else
                     <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Registered Roles"]
                     </MudText>
                     <MudText Typo="Typo.h5">@RoleCount</MudText>
+                </div>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
+                <MudIcon Icon="@Icons.Material.Filled.RoomPreferences" Color="Color.Info" Class="mx-4"
+                         Style="width:54px; height:54px;"></MudIcon>
+                <div>
+                    <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">@L["Type Chambres"]</MudText>
+                    <MudText Typo="Typo.h5">@TypeChambreCount</MudText>
                 </div>
             </MudPaper>
         </MudItem>
