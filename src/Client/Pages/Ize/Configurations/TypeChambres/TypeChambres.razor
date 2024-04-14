@@ -8,11 +8,11 @@
 <EntityTable TEntity="TypeChambreDto" TId="Guid" TRequest="UpdateTypeChambreRequest" Context="@Context">
     <EditFormContent>
         <MudItem xs="12" md="6">
-            <MudTextField T="string" For="@(() => context.Code)" @bind-Value="context.Code" Label="@L["Code"]" />
+            <MudTextField T="string" For="@(() => context.Code)" @bind-Value="context.Code" Label="@L["Code"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
         </MudItem>
 
         <MudItem xs="12" md="6">
-            <MudTextField T="string" For="@(() => context.Libelle)" @bind-Value="context.Libelle" Label="@L["Libelle"]" />
+            <MudTextField T="string" For="@(() => context.Libelle)" @bind-Value="context.Libelle" Label="@L["Libelle"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
         </MudItem>
     </EditFormContent>
 </EntityTable>

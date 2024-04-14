@@ -1,0 +1,14 @@
+﻿@page "/configurations/typeReservations"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.TypeReservations)]
+
+@inject IStringLocalizer<TypeReservations> L
+
+<FshTitle Title="@L["Type Reservation"]" Description="@L["Gérer les types de réservations"]" />
+
+<EntityTable TEntity="TypeReservationDto" TId="Guid" TRequest="UpdateTypeReservationRequest" Context="Context">
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="context.Libelle" For="@(() => context.Libelle)" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+    </EditFormContent>
+</EntityTable>

@@ -26,10 +26,12 @@ public partial class NavMenu
     private bool _canViewChambres;
     private bool _canViewClients;
     private bool _canViewVentes;
+    private bool _canViewTypeReservations;
+    private bool _canViewReservations;
 
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
-    private bool CanViewConfigurationGroup => _canViewTypeChambres || _canViewAgents || _canViewChambres;
-    private bool CanViewReceptionGroup => _canViewClients;
+    private bool CanViewConfigurationGroup => _canViewTypeChambres || _canViewAgents || _canViewChambres || _canViewTypeReservations;
+    private bool CanViewReceptionGroup => _canViewClients || _canViewReservations;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -43,9 +45,11 @@ public partial class NavMenu
         _canViewBrands = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Brands);
         _canViewTenants = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Tenants);
         _canViewTypeChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.TypeChambres);
+        _canViewTypeReservations = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.TypeReservations);
         _canViewAgents = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Agents);
         _canViewChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Chambres);
         _canViewClients = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Clients);
         _canViewVentes = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Ventes);
+        _canViewReservations = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Reservations);
     }
 }

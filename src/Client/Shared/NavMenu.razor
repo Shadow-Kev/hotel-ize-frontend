@@ -25,6 +25,10 @@
         {
             <MudNavLink Href="/reception/clients" Icon="@Icons.Filled.People">@L["Clients"]</MudNavLink>
         }
+        @if (_canViewReservations)
+        {
+            <MudNavLink Href="/reception/reservations" Icon="@Icons.Filled.BookmarkAdded">@L["Réservations"]</MudNavLink>
+        }
     }
     @if (_canViewProducts || _canViewBrands)
     {
@@ -60,6 +64,10 @@
         @if (_canViewChambres)
         {
             <MudNavLink Href="/configurations/chambres" Icon="@Icons.Material.Filled.MeetingRoom">@L["Chambres"]</MudNavLink>
+        }
+        @if (_canViewTypeReservations)
+        {
+            <MudNavLink Href="/configurations/typeReservations" Icon="@Icons.Material.Filled.Bookmarks">@L["Type Reservations"]</MudNavLink>
         }
         @if (_canViewAgents)
         {
