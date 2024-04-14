@@ -1,0 +1,9 @@
+﻿@page "/reception/reservations"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Reservations)]
+
+@inject IStringLocalizer<Reservations> L
+
+<FshTitle Title="@L["Réservations"]" Description="@L["Gérer les réservations"]" />
+<EntityTable TEntity="ReservationDto" TId="Guid" TRequest="UpdateReservationRequest" Context="Context">
+
+</EntityTable>

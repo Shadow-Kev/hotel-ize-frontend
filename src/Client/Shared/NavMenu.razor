@@ -25,6 +25,10 @@
         {
             <MudNavLink Href="/reception/clients" Icon="@Icons.Filled.People">@L["Clients"]</MudNavLink>
         }
+        @if (_canViewReservations)
+        {
+            <MudNavLink Href="/reception/reservations" Icon="@Icons.Filled.BookmarkAdded">@L["Réservations"]</MudNavLink>
+        }
     }
     @if (_canViewProducts || _canViewBrands)
     {
