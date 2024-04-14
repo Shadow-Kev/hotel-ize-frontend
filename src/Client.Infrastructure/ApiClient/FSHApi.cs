@@ -13974,6 +13974,18 @@ namespace hotel_ize_frontend.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("brandCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int BrandCount { get; set; } = default!;
 
+        [Newtonsoft.Json.JsonProperty("clientCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ClientCount { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("chambreCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ChambreCount { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("typeChambreCount", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? TypeChambreCount { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("reservationCount", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? ReservationCount { get; set; } = default!;
+
         [Newtonsoft.Json.JsonProperty("userCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int UserCount { get; set; } = default!;
 

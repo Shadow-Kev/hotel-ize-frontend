@@ -61,6 +61,10 @@
         {
             <MudNavLink Href="/configurations/chambres" Icon="@Icons.Material.Filled.MeetingRoom">@L["Chambres"]</MudNavLink>
         }
+        @if (_canViewTypeReservations)
+        {
+            <MudNavLink Href="/configurations/typeReservations" Icon="@Icons.Material.Filled.Bookmarks">@L["Type Reservations"]</MudNavLink>
+        }
         @if (_canViewAgents)
         {
             <MudNavLink Href="/configurations/agents" Icon="@Icons.Material.Filled.PeopleAlt">@L["Agents"]</MudNavLink>
