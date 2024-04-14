@@ -26,9 +26,10 @@ public partial class NavMenu
     private bool _canViewChambres;
     private bool _canViewClients;
     private bool _canViewVentes;
+    private bool _can_ViewTypeReservations;
 
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
-    private bool CanViewConfigurationGroup => _canViewTypeChambres || _canViewAgents || _canViewChambres;
+    private bool CanViewConfigurationGroup => _canViewTypeChambres || _canViewAgents || _canViewChambres || _can_ViewTypeReservations;
     private bool CanViewReceptionGroup => _canViewClients;
 
     protected override async Task OnParametersSetAsync()

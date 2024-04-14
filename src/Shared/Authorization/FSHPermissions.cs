@@ -26,8 +26,10 @@ public static class FSHResource
     public const string Products = nameof(Products);
     public const string Brands = nameof(Brands);
     public const string TypeChambres = nameof(TypeChambres);
+    public const string TypeReservations = nameof(TypeReservations);
     public const string Agents = nameof(Agents);
     public const string Chambres = nameof(Chambres);
+    public const string Reservations = nameof(Reservations);
     public const string Ventes = nameof(Ventes);
     public const string Clients = nameof(Clients);
 }
@@ -78,12 +80,25 @@ public static class FSHPermissions
         new("Delete TypeChambres", FSHAction.Delete, FSHResource.TypeChambres),
         new("View TypeChambres", FSHAction.View, FSHResource.TypeChambres),
 
+        new("Create TypeReservations", FSHAction.Create, FSHResource.TypeReservations),
+        new("Search TypeReservations", FSHAction.Search, FSHResource.TypeReservations),
+        new("Update TypeReservations", FSHAction.Update, FSHResource.TypeReservations),
+        new("Delete TypeReservations", FSHAction.Delete, FSHResource.TypeReservations),
+        new("View TypeReservations", FSHAction.View, FSHResource.TypeReservations),
+
         new("View Chambres", FSHAction.View, FSHResource.Chambres),
         new("Create Chambres", FSHAction.Create, FSHResource.Chambres),
         new("Search Chambres", FSHAction.Search, FSHResource.Chambres),
         new("Update Chambres", FSHAction.Update, FSHResource.Chambres),
         new("Delete Chambres", FSHAction.Delete, FSHResource.Chambres),
         new("Export Chambres", FSHAction.Export, FSHResource.Chambres),
+
+        new("View Reservations", FSHAction.View, FSHResource.Reservations),
+        new("Create Reservations", FSHAction.Create, FSHResource.Reservations),
+        new("Search Reservations", FSHAction.Search, FSHResource.Reservations),
+        new("Update Reservations", FSHAction.Update, FSHResource.Reservations),
+        new("Delete Reservations", FSHAction.Delete, FSHResource.Reservations),
+        new("Export Reservations", FSHAction.Export, FSHResource.Reservations),
 
         new("View Ventes", FSHAction.View, FSHResource.Ventes),
         new("Create Ventes", FSHAction.Create, FSHResource.Ventes),
