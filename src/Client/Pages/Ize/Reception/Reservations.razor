@@ -5,5 +5,31 @@
 
 <FshTitle Title="@L["Réservations"]" Description="@L["Gérer les réservations"]" />
 <EntityTable TEntity="ReservationDto" TId="Guid" TRequest="UpdateReservationRequest" Context="Context">
-
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="context.Nom" For="@(() => context.Nom)" Label="@L["Nom"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField @bind-Value="context.Prenom" For="@(() => context.Prenom)" Label="@L["Prénoms"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée"]" For="@(() => context.DateArrive)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudAutocomplete @bind-Value="context.TypeReservationId" For="@(() => context.TypeReservationId)" Label="@L["Choisir le type de la réservation"]"
+                Margin="Margin.Dense" Variant="Variant.Outlined" ResetValueOnEmptyText="true" SearchFunc="SearchTypeReservation"
+                ToStringFunc="@(e => _typeReservations.FirstOrDefault(_ => _.Id == e)?.Libelle ?? string.Empty)" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudAutocomplete @bind-Value="context.ChambreId" For="@(() => context.ChambreId)" Label="@L["Choisir la chambre"]"
+                Margin="Margin.Dense" Variant="Variant.Outlined" ResetValueOnEmptyText="true" SearchFunc="SearchChambre"
+                ToStringFunc="@(e => _chambres.FirstOrDefault(_ => _.Id == e)?.Nom ?? string.Empty)" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudSelect @bind-Value="context.StatutReservation" Label="@L["Choisir le statut de la réservation"]" Margin="Margin.Dense" Variant="Variant.Outlined">
+                <MudSelectItem Value="@Statut.RESERVE">@L["Réservée"]</MudSelectItem>
+                <MudSelectItem Value="@Statut.TERMINE">@L["Terminée"]</MudSelectItem>
+            </MudSelect>
+        </MudItem>
+    </EditFormContent>
 </EntityTable>

@@ -11,15 +11,18 @@ public partial class Reservations
     protected IReservationsClient ReservationsClient { get; set; } = default!;
     [Inject]
     protected IChambresClient ChambresClient { get; set; } = default!;
+    [Inject]
+    protected ITypeReservationsClient TypeReservationsClient { get; set; } = default!;
 
     protected EntityServerTableContext<ReservationDto, Guid, UpdateReservationRequest> Context { get; set; } = default!;
 
     private EntityTable<ReservationDto, Guid, UpdateReservationRequest> _table = default!;
     private List<ReservationDto> _reservations { get; set; } = default!;
     private List<ChambreDetailsDto> _chambres { get; set; } = new();
+    private List<TypeReservationDto> _typeReservations { get; set; } = new();
     private bool _isLoading { get; set; } = false;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         Context = new(
             entityName: L["Reservation"],
@@ -56,6 +59,8 @@ public partial class Reservations
             },
             deleteFunc: async id => await ReservationsClient.DeleteAsync(id)
         );
+        await GetChambres();
+        await GetTypeReservations();
     }
 
     private async Task GetChambres()
@@ -64,9 +69,38 @@ public partial class Reservations
         var response = await ChambresClient.GetAllAsync();
         if (response.Count > 0)
         {
-            _chambres = response.ToList();
+            _chambres = response.Where(c => c.Disponible).ToList();
             _isLoading = false;
         }
+    }
+
+    private async Task<IEnumerable<Guid?>> SearchChambre(string value)
+    {
+        return string.IsNullOrEmpty(value)
+            ? _chambres.Select(_ => (Guid?)_.Id)
+            : _chambres.Where(_ => _.Nom.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                .Select(_ => (Guid?)_.Id)
+                .ToList();
+    }
+
+    private async Task GetTypeReservations()
+    {
+        _isLoading = true;
+        var response = await TypeReservationsClient.GetAllAsync();
+        if (response.Count > 0)
+        {
+            _typeReservations = response.ToList();
+            _isLoading = false;
+        }
+    }
+
+    private async Task<IEnumerable<Guid>> SearchTypeReservation(string value)
+    {
+        return string.IsNullOrEmpty(value)
+            ? _typeReservations.Select(_ => _.Id)
+            : _typeReservations.Where(_ => _.Libelle.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                .Select(_ => _.Id)
+                .ToList();
     }
 
     private string? _searchNom;

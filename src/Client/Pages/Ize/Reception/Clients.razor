@@ -6,7 +6,7 @@
 <EntityTable @ref="@_table" TEntity="ClientDto" TId="Guid" TRequest="UpdateClientRequest" Context="Context">
     <EditFormContent>
         <MudItem xs="12" md="6">
-            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée'"]" For="@(() => context.DateArrive)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée"]" For="@(() => context.DateArrive)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudDatePicker @bind-Date="@context.DateDepart" Label="@L["Date de départ"]" For="@(() => context.DateDepart)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
