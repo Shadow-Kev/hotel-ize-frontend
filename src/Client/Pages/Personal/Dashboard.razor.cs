@@ -13,6 +13,12 @@ public partial class Dashboard
     [Parameter]
     public int BrandCount { get; set; }
     [Parameter]
+    public int ClientCount { get; set; }
+    [Parameter]
+    public int ChambreCount { get; set; }
+    [Parameter]
+    public int? TypeChambreCount { get; set; }
+    [Parameter]
     public int UserCount { get; set; }
     [Parameter]
     public int RoleCount { get; set; }
@@ -48,6 +54,9 @@ public partial class Dashboard
         {
             ProductCount = statsDto.ProductCount;
             BrandCount = statsDto.BrandCount;
+            ClientCount = statsDto.ClientCount;
+            ChambreCount = statsDto.ChambreCount;
+            TypeChambreCount = statsDto.TypeChambreCount;
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
             foreach (var item in statsDto.DataEnterBarChart)

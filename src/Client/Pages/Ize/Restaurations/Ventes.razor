@@ -1,0 +1,20 @@
+﻿@page "/catalog/ventes"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Ventes)]
+@inject IStringLocalizer<Ventes> L
+
+<EntityTable @ref="@_table" TEntity="VenteDto" TId="Guid" TRequest="UpdateVenteRequest" Context="Context">
+    <EditFormContent>
+        <MudItem xs="12" md="6">
+            @* <MudTextField FullWidth="false" Immediate="true" Placeholder="@L["Rechercher un produit"]" Adornment="Adornment.Start"
+                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 mb-3" Variant="Variant.Outlined" Margin="Margin.Dense"
+                ValueChanged="@(async (string value) => {_searchString = value; await SearchProductToSell();})"/> *@
+                <MudAutocomplete @bind-Value="context.ProductId" For="@(() => context.ProductId)" Label="@L["Entrer le nom du produit"]"
+                    Margin="Margin.Dense" Variant="Variant.Outlined"
+                    ResetValueOnEmptyText="true" SearchFunc="SearchProduct" ToStringFunc="@(e => _products.FirstOrDefault(_ => _.Id == e)?.Name ?? string.Empty)" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudNumericField @bind-Value="context.Quantite" Label="@L["Quantité"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        </MudItem>
+    </EditFormContent>
+</EntityTable>
+

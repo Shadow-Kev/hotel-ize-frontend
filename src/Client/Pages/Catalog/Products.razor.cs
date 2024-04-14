@@ -29,6 +29,8 @@ public partial class Products
                 new(prod => prod.Name, L["Name"], "Name"),
                 new(prod => prod.BrandName, L["Brand"], "Brand.Name"),
                 new(prod => prod.Description, L["Description"], "Description"),
+                new(prod => prod.Prix, L["Prix"], "Prix"),
+                new(prod => prod.Quantite, L["Quantités"], "Quantite"),
                 new(prod => prod.Rate, L["Rate"], "Rate")
             },
             enableAdvancedSearch: true,

@@ -22,6 +22,15 @@
                 @bind-Value="context.Description" />
         </MudItem>
         <MudItem xs="12" md="6">
+            <MudTextField Label="@L["Prix"]" For="@(() => context.Prix)"
+                @bind-Value="context.Prix" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="@L["Quantité"]" For="@(() => context.Quantite)"
+                @bind-Value="context.Quantite" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
             <BrandAutocomplete For="@(() => context.BrandId)" @bind-Value="context.BrandId" OffsetY="true" />
         </MudItem>
         <MudItem xs="12" md="6">

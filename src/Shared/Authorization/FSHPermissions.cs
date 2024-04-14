@@ -28,6 +28,7 @@ public static class FSHResource
     public const string TypeChambres = nameof(TypeChambres);
     public const string Agents = nameof(Agents);
     public const string Chambres = nameof(Chambres);
+    public const string Ventes = nameof(Ventes);
     public const string Clients = nameof(Clients);
 }
 
@@ -83,6 +84,13 @@ public static class FSHPermissions
         new("Update Chambres", FSHAction.Update, FSHResource.Chambres),
         new("Delete Chambres", FSHAction.Delete, FSHResource.Chambres),
         new("Export Chambres", FSHAction.Export, FSHResource.Chambres),
+
+        new("View Ventes", FSHAction.View, FSHResource.Ventes),
+        new("Create Ventes", FSHAction.Create, FSHResource.Ventes),
+        new("Search Ventes", FSHAction.Search, FSHResource.Ventes),
+        new("Update Ventes", FSHAction.Update, FSHResource.Ventes),
+        new("Delete Ventes", FSHAction.Delete, FSHResource.Ventes),
+        new("Export Ventes", FSHAction.Export, FSHResource.Ventes),
 
         new("View Client", FSHAction.View, FSHResource.Clients),
         new("Create Client", FSHAction.Create, FSHResource.Clients),
