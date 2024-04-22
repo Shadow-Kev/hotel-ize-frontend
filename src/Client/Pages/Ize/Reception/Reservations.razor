@@ -13,7 +13,8 @@
             <MudTextField @bind-Value="context.Prenom" For="@(() => context.Prenom)" Label="@L["Prénoms"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée"]" For="@(() => context.DateArrive)" Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" />
+            <MudDatePicker @bind-Date="@context.DateArrive" Label="@L["Date d'arrivée"]" For="@(() => context.DateArrive)"
+                Margin="Margin.Dense" Variant="Variant.Outlined" DisableToolbar="true" MinDate="@DateTime.Today" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudAutocomplete @bind-Value="context.TypeReservationId" For="@(() => context.TypeReservationId)" Label="@L["Choisir le type de la réservation"]"
