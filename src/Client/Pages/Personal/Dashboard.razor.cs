@@ -19,6 +19,8 @@ public partial class Dashboard
     [Parameter]
     public int? TypeChambreCount { get; set; }
     [Parameter]
+    public int? ReservationCount { get; set; } 
+    [Parameter]
     public int UserCount { get; set; }
     [Parameter]
     public int RoleCount { get; set; }
@@ -57,6 +59,7 @@ public partial class Dashboard
             ClientCount = statsDto.ClientCount;
             ChambreCount = statsDto.ChambreCount;
             TypeChambreCount = statsDto.TypeChambreCount;
+            ReservationCount = statsDto.ReservationCount;
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
             foreach (var item in statsDto.DataEnterBarChart)
