@@ -5,6 +5,7 @@ using hotel_ize_frontend.Client.Components.EntityTable;
 using FSH.WebApi.Shared.Authorization;
 using Mapster;
 using System.Security.Claims;
+using MudBlazor;
 
 namespace hotel_ize_frontend.Client.Pages.Ize.Restaurations;
 public partial class Ventes
@@ -22,6 +23,10 @@ public partial class Ventes
     private EntityTable<VenteDto, Guid, UpdateVenteRequest> _table = default!;
     private List<VenteDto> _ventes { get; set; } = default!;
     private List<ProductDto> _products { get; set; } = new();
+    private Guid _productId;
+    private int _quantite;
+    private List<ProductQuantite> _productQuantites { get; set; } = new();
+    private List<VenteProduitDto> _venteProduits { get; set; } = new();
     private bool _isLoading { get; set; } = false;
     private string _searchString = "";
 
@@ -33,18 +38,47 @@ public partial class Ventes
             entityResource: FSHResource.Ventes,
             fields: new()
             {
-                new(v => v.ProductNom, L["Produit"], "Produit"),
-                new(v => v.Quantite, L["Quantités"], "Quantite"),
+                new((v) =>
+                {
+                    var productNames = new List<string>();
+                    var prods = v.VenteProduits.ToList();
+                    foreach(var prod in prods)
+                    {
+                        productNames.Add(prod?.Product?.Name);
+                    }
+
+                    return string.Join(", ", productNames);
+                }, L["Produit"], "Produit"),
+                new((v) =>
+                {
+                    var productQuantites = new List<string>();
+                    var prods = v.VenteProduits.ToList();
+                    foreach (var prod in prods)
+                    {
+                        productQuantites.Add(prod?.Quantite.ToString()!);
+                    }
+
+                    return string.Join(", ", productQuantites);
+                }, L["Quantités"], "Quantite"),
+                new((v) =>
+                {
+                    var productPrix = new List<string>();
+                    var prods = v.VenteProduits.ToList();
+                    foreach (var prod in prods)
+                    {
+                        productPrix.Add(prod?.Prix.ToString()!);
+                    }
+
+                    return string.Join(", ", productPrix);
+                }, L["Prix Unitaire"], "PU"),
+                new(v => v.VenteProduits.Sum(_ => _.Quantite * _.Prix).ToString(), L["Total"], "Total"),
                 new(v => v.AgentNom, L["Agent"], "Agent")
             },
             idFunc: v => v.Id,
             searchFunc: async filter =>
             {
                 var venteFilter = filter.Adapt<SearchVentesRequest>();
-                venteFilter.ProductId = SearchProductId == default ? null : SearchProductId;
                 venteFilter.AgentId = SearchAgentId == default ? null : SearchAgentId;
-                venteFilter.Prix = SearchVentePrix;
-                venteFilter.Quantite = SearchVenteQuantite;
 
                 var result = await VentesClient.SearchAsync(venteFilter);
                 return result.Adapt<PaginationResponse<VenteDto>>();
@@ -55,7 +89,20 @@ public partial class Ventes
                 string userIdString = user.GetUserId();
                 Guid userCode = Guid.Parse(userIdString!);
                 var agents = await AgentsClient.GetAllAsync();
-                v.AgentId = agents.Where(_ => _.UserCode == userCode).Select(_ => _.Id).FirstOrDefault();
+                var agentOnline = agents.FirstOrDefault(_ => _.UserCode == userCode);
+                if (agentOnline is not null)
+                    v.AgentId = agentOnline.Id;
+                else Snackbar.Add("Agent invalide", Severity.Error);
+                v.Products = new List<ProductQuantite>();
+                foreach(var vp in _venteProduits)
+                {
+                    v.Products.Add(new ProductQuantite
+                    {
+                        ProductId = vp.ProductId,
+                        Quantite = vp.Quantite,
+                    });
+                }
+
                 await VentesClient.CreateAsync(v.Adapt<CreateVenteRequest>());
             },
             updateFunc: async (id, v) =>
@@ -64,9 +111,23 @@ public partial class Ventes
                 string userIdString = user.GetUserId();
                 Guid userCode = Guid.Parse(userIdString!);
                 var agents = await AgentsClient.GetAllAsync();
-                v.AgentId = agents.Where(_ => _.UserCode == userCode).Select(_ => _.Id).FirstOrDefault();
+                var agentOnline = agents.FirstOrDefault(_ => _.UserCode == userCode);
+                if (agentOnline is not null)
+                    v.AgentId = agentOnline.Id;
+                else Snackbar.Add("Agent invalide", Severity.Error);
+                v.Products.Clear();
+                foreach (var vp in _venteProduits)
+                {
+                    v.Products.Add(new ProductQuantite
+                    {
+                        ProductId = vp.ProductId,
+                        Quantite = vp.Quantite,
+                    });
+                }
+
                 await VentesClient.UpdateAsync(id, v);
             },
+            exportAction: string.Empty,
             deleteFunc: async id => await VentesClient.DeleteAsync(id)
         );
         await SearchProductToSell();
@@ -104,17 +165,6 @@ public partial class Ventes
                 .ToList();
     }
 
-    private Guid _searchProductId;
-    private Guid SearchProductId
-    {
-        get => _searchProductId;
-        set
-        {
-            _searchProductId = value;
-            _ = _table.ReloadDataAsync();
-        }
-    }
-
     private Guid _searchAgentId;
     private Guid SearchAgentId
     {
@@ -126,25 +176,44 @@ public partial class Ventes
         }
     }
 
-    private decimal? _searchVentePrix;
-    private decimal? SearchVentePrix
+    private async void AddProductToTable(Guid productId, int quantite)
     {
-        get => _searchVentePrix;
-        set
+        try
         {
-            _searchVentePrix = value;
-            _ = _table.ReloadDataAsync();
+            if (_productId != Guid.Empty && _quantite != 0)
+            {
+                _productQuantites.Add(new ProductQuantite
+                {
+                    ProductId = productId,
+                    Quantite = quantite
+                });
+
+                foreach(var item in _productQuantites)
+                {
+                    var p = await ProductsClient.GetAsync(item.ProductId);
+                    _venteProduits.Add(new VenteProduitDto
+                    {
+                        Prix = p.Prix,
+                        Quantite = item.Quantite,
+                        ProductId = item.ProductId,
+                        Product = p.Adapt<ProductDto>()
+                    });
+                    await InvokeAsync(StateHasChanged);
+                }
+
+                _productQuantites.Clear();
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
         }
     }
 
-    private int? _searchVenteQuantite;
-    private int? SearchVenteQuantite
+    private async void RemoveVenteProduitInTheTable(int produit)
     {
-        get => _searchVenteQuantite;
-        set
-        {
-            _searchVenteQuantite = value;
-            _ = _table.ReloadDataAsync();
-        }
+        _venteProduits.RemoveAt(produit);
+        await InvokeAsync(StateHasChanged);
     }
+
 }

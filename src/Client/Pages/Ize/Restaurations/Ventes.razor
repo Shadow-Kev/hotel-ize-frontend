@@ -1,19 +1,50 @@
 ﻿@page "/catalog/ventes"
 @attribute [MustHavePermission(FSHAction.View, FSHResource.Ventes)]
 @inject IStringLocalizer<Ventes> L
-
+<FshTitle Title="@L["Restauration"]" Description="@L["Gestion du bar"]" />
 <EntityTable @ref="@_table" TEntity="VenteDto" TId="Guid" TRequest="UpdateVenteRequest" Context="Context">
     <EditFormContent>
-        <MudItem xs="12" md="6">
+        <MudItem xs="12" md="5">
             @* <MudTextField FullWidth="false" Immediate="true" Placeholder="@L["Rechercher un produit"]" Adornment="Adornment.Start"
                 AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 mb-3" Variant="Variant.Outlined" Margin="Margin.Dense"
                 ValueChanged="@(async (string value) => {_searchString = value; await SearchProductToSell();})"/> *@
-                <MudAutocomplete @bind-Value="context.ProductId" For="@(() => context.ProductId)" Label="@L["Entrer le nom du produit"]"
+                <MudAutocomplete @bind-Value="_productId" For="@(() => _productId)" Label="@L["Entrer le nom du produit"]"
                     Margin="Margin.Dense" Variant="Variant.Outlined"
                     ResetValueOnEmptyText="true" SearchFunc="SearchProduct" ToStringFunc="@(e => _products.FirstOrDefault(_ => _.Id == e)?.Name ?? string.Empty)" />
         </MudItem>
-        <MudItem xs="12" md="6">
-            <MudNumericField @bind-Value="context.Quantite" Label="@L["Quantité"]" Margin="Margin.Dense" Variant="Variant.Outlined" />
+        <MudItem xs="12" md="5">
+            <MudNumericField
+                @bind-Value="_quantite"
+                Label="@L["Quantité"]"
+                Margin="Margin.Dense"
+                Variant="Variant.Outlined"
+             />
+        </MudItem>
+        <MudItem xs="12" md="2">
+            <MudIconButton Icon="@Icons.Filled.Add" Color="Color.Primary" Variant="Variant.Filled" OnClick="@(() => AddProductToTable(_productId, _quantite))" />
+        </MudItem>
+        <MudItem xs="12" md="12">
+            <MudTable Items="_venteProduits" Dense="true" Striped="true" Bordered="true" Elevation="25" Height="300px"> 
+                <HeaderContent>
+                    <MudTh>@L["Désignation"]</MudTh>
+                    <MudTh>@L["Prix Unitaire"]</MudTh>
+                    <MudTh>@L["Quantité"]</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="item">
+                    <MudTd DataLabel="@L["Désignation"]">
+                        @item?.Product?.Name
+                    </MudTd>
+                    <MudTd DataLabel="@L["Prix Unitaire"]">
+                        @item?.Product?.Prix
+                    </MudTd>
+                    <MudTd DataLabel="@L["Quantité"]">
+                        @item?.Quantite
+                    </MudTd>
+                    <MudTd>
+                        <MudIconButton Icon="@Icons.Material.Filled.RestoreFromTrash" Color="Color.Primary" OnClick="@(() => RemoveVenteProduitInTheTable(_venteProduits.IndexOf(item)))" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
         </MudItem>
     </EditFormContent>
 </EntityTable>
