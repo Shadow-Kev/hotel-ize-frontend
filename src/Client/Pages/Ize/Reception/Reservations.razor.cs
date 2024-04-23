@@ -57,6 +57,7 @@ public partial class Reservations
             {
                 await ReservationsClient.UpdateAsync(id, r);
             },
+            exportAction: string.Empty,
             deleteFunc: async id => await ReservationsClient.DeleteAsync(id)
         );
         await GetChambres();

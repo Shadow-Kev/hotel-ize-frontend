@@ -8,30 +8,36 @@
 <EntityTable @ref="_table" TEntity="ProductDto" TId="Guid" TRequest="ProductViewModel" Context="@Context">
 
     <AdvancedSearchContent>
-        <BrandAutocomplete @bind-Value="SearchBrandId" />
+        <BrandAutocomplete @bind-Value="SearchBrandId" Variant="Variant.Outlined" Margin="Margin.Dense"/>
         <MudSlider T="decimal" @bind-value="SearchMinimumRate">@L["Minimum Rate"]: @_searchMinimumRate.ToString()</MudSlider>
         <MudSlider T="decimal" @bind-value="SearchMaximumRate">@L["Maximum Rate"]: @_searchMaximumRate.ToString()</MudSlider>
     </AdvancedSearchContent>
 
     <EditFormContent>
         <MudItem xs="12" md="6">
-            <MudTextField Label="@L["Name"]" For="@(() => context.Name)" @bind-Value="context.Name" />
+            <MudTextField Label="@L["Name"]" For="@(() => context.Name)" @bind-Value="context.Name" Variant="Variant.Outlined" Margin="Margin.Dense" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField Label="@L["Description"]" For="@(() => context.Description)"
                 @bind-Value="context.Description" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <MudTextField Label="@L["Prix"]" For="@(() => context.Prix)"
-                @bind-Value="context.Prix" />
+            <MudTextField Label="@L["Prix"]"
+                For="@(() => context.Prix)"
+                @bind-Value="context.Prix"
+                Variant="Variant.Text"
+                Format="N0"
+                Adornment="Adornment.End"
+                AdornmentText="FCFA"
+            />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField Label="@L["Quantité"]" For="@(() => context.Quantite)"
-                @bind-Value="context.Quantite" />
+                @bind-Value="context.Quantite" Variant="Variant.Outlined" Margin="Margin.Dense" />
         </MudItem>
 
         <MudItem xs="12" md="6">
-            <BrandAutocomplete For="@(() => context.BrandId)" @bind-Value="context.BrandId" OffsetY="true" />
+            <BrandAutocomplete For="@(() => context.BrandId)" @bind-Value="context.BrandId" OffsetY="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField Label="@L["Rate"]" For="@(() => context.Rate)" @bind-Value="context.Rate" />

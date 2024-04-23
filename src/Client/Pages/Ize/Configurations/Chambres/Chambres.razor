@@ -23,7 +23,8 @@
             <MudNumericField @bind-Value="context.Capacite" Label="@L["Saisir la capacité"]" For="@(() => context.Capacite)" Variant="Variant.Outlined" Margin="Margin.Dense" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <MudNumericField @bind-Value="context.Prix" Label="@L["Saisir le prix"]" For="@(() => context.Prix)" Variant="Variant.Outlined" Margin="Margin.Dense" />
+            <MudNumericField @bind-Value="context.Prix" Label="@L["Saisir le prix"]" For="@(() => context.Prix)" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End"
+                AdornmentText="FCFA" />
         </MudItem>
         <MudItem xs="12" md="4">
             <MudCheckBox T="bool" Checked="context.Climatisee" CheckedChanged="@((bool check) => context.Climatisee = check)" Label="@L["Climatisée ?"]"></MudCheckBox>
