@@ -18,6 +18,8 @@ public partial class Ventes
     protected IAgentsClient AgentsClient { get; set; } = default!;
     [Inject]
     protected IProductsClient ProductsClient { get; set; } = default!;
+    [Inject]
+    protected IPdfsClient PdfsClient { get; set; } = default!;
 
     protected EntityServerTableContext<VenteDto, Guid, UpdateVenteRequest> Context { get; set; } = default!;
     private EntityTable<VenteDto, Guid, UpdateVenteRequest> _table = default!;
@@ -128,7 +130,8 @@ public partial class Ventes
                 await VentesClient.UpdateAsync(id, v);
             },
             exportAction: string.Empty,
-            deleteFunc: async id => await VentesClient.DeleteAsync(id)
+            deleteFunc: async id => await VentesClient.DeleteAsync(id),
+            hasExtraActionsFunc: () => true
         );
         await SearchProductToSell();
     }
@@ -214,6 +217,18 @@ public partial class Ventes
     {
         _venteProduits.RemoveAt(produit);
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async void GenererFactureVente(Guid id)
+    {
+        if (id != Guid.Empty)
+        {
+            var response = await PdfsClient.PrintFactureVenteAsync(id);
+            if (response.StatusCode == 200)
+            {
+                Snackbar.Add("Facture générer avec succès", Severity.Success);
+            }
+        }
     }
 
 }
