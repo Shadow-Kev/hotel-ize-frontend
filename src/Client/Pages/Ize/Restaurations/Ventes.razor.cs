@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components;
-using hotel_ize_frontend.Client.Infrastructure.ApiClient;
-using hotel_ize_frontend.Client.Components.EntityTable;
 using FSH.WebApi.Shared.Authorization;
+using hotel_ize_frontend.Client.Components.EntityTable;
+using hotel_ize_frontend.Client.Infrastructure.ApiClient;
 using Mapster;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
+using System.Security.Claims;
 
 namespace hotel_ize_frontend.Client.Pages.Ize.Restaurations;
 public partial class Ventes
@@ -18,6 +18,8 @@ public partial class Ventes
     protected IAgentsClient AgentsClient { get; set; } = default!;
     [Inject]
     protected IProductsClient ProductsClient { get; set; } = default!;
+    [Inject]
+    protected IPdfsClient PdfsClient { get; set; } = default!;
 
     protected EntityServerTableContext<VenteDto, Guid, UpdateVenteRequest> Context { get; set; } = default!;
     private EntityTable<VenteDto, Guid, UpdateVenteRequest> _table = default!;
@@ -94,7 +96,7 @@ public partial class Ventes
                     v.AgentId = agentOnline.Id;
                 else Snackbar.Add("Agent invalide", Severity.Error);
                 v.Products = new List<ProductQuantite>();
-                foreach(var vp in _venteProduits)
+                foreach (var vp in _venteProduits)
                 {
                     v.Products.Add(new ProductQuantite
                     {
@@ -128,7 +130,8 @@ public partial class Ventes
                 await VentesClient.UpdateAsync(id, v);
             },
             exportAction: string.Empty,
-            deleteFunc: async id => await VentesClient.DeleteAsync(id)
+            deleteFunc: async id => await VentesClient.DeleteAsync(id),
+            hasExtraActionsFunc: () => true
         );
         await SearchProductToSell();
     }
@@ -188,7 +191,7 @@ public partial class Ventes
                     Quantite = quantite
                 });
 
-                foreach(var item in _productQuantites)
+                foreach (var item in _productQuantites)
                 {
                     var p = await ProductsClient.GetAsync(item.ProductId);
                     _venteProduits.Add(new VenteProduitDto
@@ -214,6 +217,22 @@ public partial class Ventes
     {
         _venteProduits.RemoveAt(produit);
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async void GenererFactureVente(Guid id)
+    {
+        if (id != Guid.Empty)
+        {
+            var response = await PdfsClient.PrintFactureVenteAsync(id);
+            if (response.StatusCode == 200)
+            {
+                Snackbar.Add("Facture générer avec succès", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Erreur lors de la génération de la facture", Severity.Error);
+            }
+        }
     }
 
 }

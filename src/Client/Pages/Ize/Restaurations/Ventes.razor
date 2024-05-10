@@ -47,5 +47,8 @@
             </MudTable>
         </MudItem>
     </EditFormContent>
+    <ExtraActions>
+        <MudMenuItem Style="color:red!important" @onclick="@(() => GenererFactureVente(context.Id))">@L["Imprimer"]</MudMenuItem>
+    </ExtraActions>
 </EntityTable>
 

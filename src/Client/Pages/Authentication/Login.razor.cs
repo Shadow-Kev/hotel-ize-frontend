@@ -65,6 +65,7 @@ public partial class Login
 
     private async Task SubmitAsync()
     {
+        TenantId = MultitenancyConstants.Root.Id;
         BusySubmitting = true;
 
         if (await ApiHelper.ExecuteCallGuardedAsync(
