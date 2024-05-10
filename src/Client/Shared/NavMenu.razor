@@ -85,9 +85,9 @@
         {
             <MudNavLink Href="/roles" Icon="@Icons.Material.Filled.EmojiPeople">@L["Roles"]</MudNavLink>
         }
-        @if(_canViewTenants)
+        @* @if(_canViewTenants)
         {
             <MudNavLink Href="/tenants" Icon="@Icons.Filled.GroupWork" Disabled="!_canViewTenants">@L["Tenants"]</MudNavLink>
-        }
+        } *@
     }
 </MudNavMenu>
