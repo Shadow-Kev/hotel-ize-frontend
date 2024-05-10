@@ -24,9 +24,11 @@ public partial class NavMenu
     private bool _canViewTypeChambres;
     private bool _canViewAgents;
     private bool _canViewChambres;
+    private bool _canAddOrEditChambres;
     private bool _canViewClients;
     private bool _canViewVentes;
     private bool _canViewTypeReservations;
+    private bool _canAddOrEditTypeReservations;
     private bool _canViewReservations;
 
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
@@ -46,8 +48,10 @@ public partial class NavMenu
         _canViewTenants = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Tenants);
         _canViewTypeChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.TypeChambres);
         _canViewTypeReservations = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.TypeReservations);
+        _canAddOrEditTypeReservations = await AuthService.HasPermissionAsync(user, FSHAction.Create, FSHResource.TypeReservations);
         _canViewAgents = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Agents);
         _canViewChambres = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Chambres);
+        _canAddOrEditChambres = await AuthService.HasPermissionAsync(user, FSHAction.Create, FSHResource.Chambres);
         _canViewClients = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Clients);
         _canViewVentes = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Ventes);
         _canViewReservations = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Reservations);
