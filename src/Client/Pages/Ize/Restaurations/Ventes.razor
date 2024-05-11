@@ -4,6 +4,11 @@
 <FshTitle Title="@L["Restauration"]" Description="@L["Gestion du bar"]" />
 <EntityTable @ref="@_table" TEntity="VenteDto" TId="Guid" TRequest="UpdateVenteRequest" Context="Context">
     <EditFormContent>
+        <MudItem xs="12" md="12">
+            <MudAutocomplete @bind-Value="_clientId" For="@(() => _clientId)" Label="@L["Entrer le nom du client"]"
+                Margin="Margin.Dense" Variant="Variant.Outlined" ResetValueOnEmptyText="true" SearchFunc="SearchClient"
+                ToStringFunc="@(e => _clients.FirstOrDefault(_ => _.Id == e)?.Nom ?? string.Empty)"/>
+        </MudItem>
         <MudItem xs="12" md="5">
             @* <MudTextField FullWidth="false" Immediate="true" Placeholder="@L["Rechercher un produit"]" Adornment="Adornment.Start"
                 AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 mb-3" Variant="Variant.Outlined" Margin="Margin.Dense"
