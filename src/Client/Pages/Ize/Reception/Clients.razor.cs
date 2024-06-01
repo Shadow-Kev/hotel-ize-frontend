@@ -4,6 +4,7 @@ using hotel_ize_frontend.Client.Infrastructure.ApiClient;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using MudBlazor;
 using System.Security.Claims;
 
 namespace hotel_ize_frontend.Client.Pages.Ize.Reception;
@@ -17,6 +18,8 @@ public partial class Clients
     protected IAgentsClient AgentsClient { get; set; } = default!;
     [Inject]
     protected IChambresClient ChambresClient { get; set; } = default!;
+    [Inject]
+    protected IPdfsClient PdfsClient {  get; set; } = default!;
 
     protected EntityServerTableContext<ClientDto, Guid, UpdateClientRequest> Context { get; set; } = default!;
 
@@ -69,7 +72,8 @@ public partial class Clients
                 c.AgentId = agents.Where(_ => _.UserCode == userCode).Select(_ => _.Id).FirstOrDefault();
                 await ClientsClient.UpdateAsync(id, c);
             },
-            deleteFunc: async id => await ClientsClient.DeleteAsync(id)
+            deleteFunc: async id => await ClientsClient.DeleteAsync(id),
+            hasExtraActionsFunc: () => true
         );
         await GetChambres();
     }
@@ -125,5 +129,21 @@ public partial class Clients
             : _chambres.Where(_ => _.Nom.Contains(value, StringComparison.InvariantCultureIgnoreCase))
                 .Select(_ => (Guid?)_.Id)
                 .ToList();
+    }
+
+    private async void GenererFactureClient(Guid id)
+    {
+        if (id != Guid.Empty)
+        {
+            var response = await PdfsClient.PrintFactureClientAsync(id);
+            if (response.StatusCode == 200)
+            {
+                Snackbar.Add("Facture générer avec succès", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Erreur lors de la génération de la facture", Severity.Error);
+            }
+        }
     }
 }

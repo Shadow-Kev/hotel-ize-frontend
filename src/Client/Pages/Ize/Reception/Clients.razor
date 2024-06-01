@@ -70,4 +70,7 @@
             <MudTextField @bind-Value="@context.PersonneAPrevenir" Label="@L["Personne à prévenir"]" For="@(() => context.PersonneAPrevenir)" Margin="Margin.Dense" Variant="Variant.Outlined" />
         </MudItem>
     </EditFormContent>
+    <ExtraActions>
+        <MudMenuItem Style="color:red!important" @onclick="@(() => GenererFactureClient(context.Id))">@L["Imprimer"]</MudMenuItem>
+    </ExtraActions>
 </EntityTable>

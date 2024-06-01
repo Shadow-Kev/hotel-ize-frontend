@@ -60,7 +60,8 @@ public partial class Reservations
             exportAction: string.Empty,
             deleteFunc: async id => await ReservationsClient.DeleteAsync(id)
         );
-        await GetChambres();
+        //await GetChambres();
+        
         await GetTypeReservations();
     }
 
@@ -75,8 +76,20 @@ public partial class Reservations
         }
     }
 
+    private async Task GetChambresDisponible()
+    {
+        _isLoading = true;
+        var response = await ChambresClient.GetAvailableChambreAsync((DateTime)Context.AddEditModal.RequestModel.DateArrive!);
+        if (response.Count > 0)
+        {
+            _chambres = response.ToList();
+            _isLoading = false;
+        }
+    }
+
     private async Task<IEnumerable<Guid?>> SearchChambre(string value)
     {
+        await GetChambresDisponible();
         return string.IsNullOrEmpty(value)
             ? _chambres.Select(_ => (Guid?)_.Id)
             : _chambres.Where(_ => _.Nom.Contains(value, StringComparison.InvariantCultureIgnoreCase))

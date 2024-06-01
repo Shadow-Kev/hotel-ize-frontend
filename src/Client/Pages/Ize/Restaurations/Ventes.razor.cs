@@ -20,12 +20,16 @@ public partial class Ventes
     protected IProductsClient ProductsClient { get; set; } = default!;
     [Inject]
     protected IPdfsClient PdfsClient { get; set; } = default!;
+    [Inject]
+    protected IClientsClient ClientsClient { get; set; } = default!;
 
     protected EntityServerTableContext<VenteDto, Guid, UpdateVenteRequest> Context { get; set; } = default!;
     private EntityTable<VenteDto, Guid, UpdateVenteRequest> _table = default!;
     private List<VenteDto> _ventes { get; set; } = default!;
     private List<ProductDto> _products { get; set; } = new();
+    private List<ClientDetailsDto> _clients { get; set; } = new();
     private Guid _productId;
+    private Guid? _clientId;
     private int _quantite;
     private List<ProductQuantite> _productQuantites { get; set; } = new();
     private List<VenteProduitDto> _venteProduits { get; set; } = new();
@@ -74,7 +78,8 @@ public partial class Ventes
                     return string.Join(", ", productPrix);
                 }, L["Prix Unitaire"], "PU"),
                 new(v => v.VenteProduits.Sum(_ => _.Quantite * _.Prix).ToString(), L["Total"], "Total"),
-                new(v => v.AgentNom, L["Agent"], "Agent")
+                new(v => v.AgentNom, L["Agent"], "Agent"),
+                new(v => v.ClientNom ?? "", L["Client"], "Client")
             },
             idFunc: v => v.Id,
             searchFunc: async filter =>
@@ -95,6 +100,7 @@ public partial class Ventes
                 if (agentOnline is not null)
                     v.AgentId = agentOnline.Id;
                 else Snackbar.Add("Agent invalide", Severity.Error);
+                v.ClientId = _clientId;
                 v.Products = new List<ProductQuantite>();
                 foreach (var vp in _venteProduits)
                 {
@@ -117,6 +123,7 @@ public partial class Ventes
                 if (agentOnline is not null)
                     v.AgentId = agentOnline.Id;
                 else Snackbar.Add("Agent invalide", Severity.Error);
+                v.ClientId = _clientId;
                 v.Products.Clear();
                 foreach (var vp in _venteProduits)
                 {
@@ -134,6 +141,7 @@ public partial class Ventes
             hasExtraActionsFunc: () => true
         );
         await SearchProductToSell();
+        await SearchClientToSell();
     }
 
     private async Task SearchProductToSell()
@@ -159,12 +167,40 @@ public partial class Ventes
         _isLoading = false;
     }
 
+    private async Task SearchClientToSell()
+    {
+        _isLoading = true;
+        var clientsResponse = await ClientsClient.GetAllAsync();
+        if (clientsResponse.Count > 0)
+        {
+            if (string.IsNullOrEmpty(_searchString))
+            {
+                _clients = clientsResponse.ToList().Take(10).ToList();
+            }
+            else
+            {
+                _clients = clientsResponse.ToList()
+                    .Where(c => c.Nom.Contains(_searchString, StringComparison.InvariantCultureIgnoreCase))
+                    .ToList();
+            }
+        }
+    }
+
     private async Task<IEnumerable<Guid>> SearchProduct(string value)
     {
         return string.IsNullOrEmpty(value)
             ? _products.Select(_ => _.Id)
             : _products.Where(_ => _.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase))
                 .Select(_ => _.Id)
+                .ToList();
+    }
+
+    private async Task<IEnumerable<Guid?>> SearchClient(string value)
+    {
+        return string.IsNullOrEmpty(value)
+            ? _clients.Select(_ => (Guid?)_.Id)
+            : _clients.Where(_ => _.Nom.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                .Select(_ => (Guid?)_.Id)
                 .ToList();
     }
 
