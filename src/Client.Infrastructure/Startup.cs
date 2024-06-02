@@ -38,7 +38,7 @@ public static class Startup
                 {
                     client.DefaultRequestHeaders.AcceptLanguage.Clear();
                     client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName);
-                    client.BaseAddress = new Uri("http://localhost:5000/api");
+                    client.BaseAddress = new Uri("http://173.212.228.38/api");
                 })
                 .AddAuthenticationHandler(config)
                 .Services
