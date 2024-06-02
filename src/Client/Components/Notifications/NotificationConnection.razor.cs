@@ -41,7 +41,7 @@ public partial class NotificationConnection : IDisposable, IAsyncDisposable
     protected override Task OnInitializedAsync()
     {
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl($"{Config[ConfigNames.ApiBaseUrl]}notifications", options =>
+            .WithUrl("http://localhost:5000/notifications", options =>
                 options.AccessTokenProvider =
                     () => TokenProvider.GetAccessTokenAsync())
             .WithAutomaticReconnect(new IndefiniteRetryPolicy())

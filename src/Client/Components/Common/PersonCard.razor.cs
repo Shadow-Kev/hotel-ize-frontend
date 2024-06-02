@@ -37,7 +37,8 @@ public partial class PersonCard
                 FullName = user.GetFullName();
                 UserId = user.GetUserId();
                 Email = user.GetEmail();
-                ImageUri = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user?.GetImageUrl());
+                //ImageUri = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user?.GetImageUrl());
+                ImageUri = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : $"http://localhost:5000/{user?.GetImageUrl()}";
                 StateHasChanged();
             }
         }

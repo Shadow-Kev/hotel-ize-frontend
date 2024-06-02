@@ -57,7 +57,8 @@ public partial class UserProfile
             _phoneNumber = user.PhoneNumber;
             _active = user.IsActive;
             _emailConfirmed = user.EmailConfirmed;
-            _imageUrl = string.IsNullOrEmpty(user.ImageUrl) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user.ImageUrl);
+            //_imageUrl = string.IsNullOrEmpty(user.ImageUrl) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user.ImageUrl);
+            _imageUrl = string.IsNullOrEmpty(user.ImageUrl) ? string.Empty : $"http://localhost:5000/{user.ImageUrl}";
             Title = $"{_firstName} {_lastName}'s {_localizer["Profile"]}";
             Description = _email;
             if (_firstName?.Length > 0)

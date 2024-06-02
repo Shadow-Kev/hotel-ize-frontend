@@ -37,7 +37,7 @@ public partial class NavMenu
 
     protected override async Task OnParametersSetAsync()
     {
-        _hangfireUrl = Config[ConfigNames.ApiBaseUrl] + "jobs";
+        _hangfireUrl = "http://localhost:5000/jobs";
         var user = (await AuthState).User;
         _canViewHangfire = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Hangfire);
         _canViewDashboard = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Dashboard);

@@ -37,7 +37,8 @@ public partial class Profile
             _profileModel.FirstName = user.GetFirstName() ?? string.Empty;
             _profileModel.LastName = user.GetSurname() ?? string.Empty;
             _profileModel.PhoneNumber = user.GetPhoneNumber();
-            _imageUrl = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user?.GetImageUrl());
+            //_imageUrl = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + user?.GetImageUrl());
+            _imageUrl = string.IsNullOrEmpty(user?.GetImageUrl()) ? string.Empty : $"http://localhost:5000/{user?.GetImageUrl()}";
             if (_userId is not null) _profileModel.Id = _userId;
         }
 
